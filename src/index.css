@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.vocab-word {
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px dotted #93c5fd;
+  transition: all 0.2s ease;
+}
+
+.vocab-word:hover {
+  background-color: #dbeafe;
+  border-bottom-color: #2563eb;
+}
+
+.dark .vocab-word {
+  color: #60a5fa;
+  border-bottom-color: #3b82f6;
+}
+
+.dark .vocab-word:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+}
