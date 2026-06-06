@@ -1,4 +1,3 @@
-
 import { vocabularyList } from './pdfWords';
 
 export interface NovelChapter {
@@ -36,45 +35,79 @@ const generateChapterContent = (chapterIndex: number, wordCount: number): NovelC
   ];
   
   const illustrationPrompts = [
-    "futuristic sci-fi scene with glowing words floating in space, young student standing amidst magical vocabulary particles, cosmic background with stars and nebulae, vibrant colors, digital art style",
-    "fantasy journey through a magical forest with word symbols on leaves, adventurer walking on a path made of books, enchanted atmosphere, whimsical and inspiring",
-    "ancient temple of knowledge with glowing runes and floating books, mysterious atmosphere, epic fantasy art style",
-    "hero facing a giant book monster, epic battle of intellect, action scene with vocabulary shields and word weapons, dynamic composition",
-    "wise sage teaching in a grand library, wisdom flowing from books, golden light rays, spiritual and educational",
-    "character climbing a mountain made of dictionaries, perseverance theme, motivational scene, sunrise at peak",
-    "magic portal made of glowing words leading to another dimension, adventure and discovery theme, mysterious",
-    "mythical creature guardian of the vocabulary realm, majestic and gentle, protecting a treasure of books",
-    "grand bridge of knowledge connecting two floating islands, journey theme, breathtaking view",
-    "glowing golden key made of letters, revealing secrets, mysterious and magical",
-    "whispering library with books floating around, ethereal voices, magical atmosphere",
-    "final showdown with knowledge dragon, epic and heroic, triumphant moment",
-    "sudden realization moment with lightbulb made of words, eureka moment, bright and inspiring",
-    "standing atop a mountain of books, overlooking a vast knowledge landscape, victorious",
-    "celebration of learning victory, confetti made of words, joyful atmosphere",
-    "master walking on a path of enlightenment, glow around, wise and peaceful",
-    "eternal wisdom tree with books as leaves, infinite knowledge, majestic and timeless",
-    "passing on the legacy, teacher and student with glowing book, heartwarming and inspiring",
-    "ultimate knowledge universe, galaxies made of words, cosmic and magnificent"
+    "epic futuristic sci-fi scene, neon glowing words floating in deep space, cosmic warrior student surrounded by magical vocabulary particles, swirling galaxies and nebulae background, cyberpunk aesthetic, vibrant purple and blue neon colors, cinematic lighting, ultra detailed, digital art masterpiece",
+    "fantasy adventure through enchanted forest, magical words glowing on tree leaves, hero walking on crystal path made of books, fireflies and floating runes, whimsical and mystical, epic fantasy art style, dramatic lighting, ultra detailed",
+    "ancient temple of forbidden knowledge, glowing blue runes covering walls, floating books spinning in air, mysterious golden light from above, epic fantasy, cinematic atmosphere, ultra detailed, digital painting",
+    "heroic battle with giant book monster, epic action scene, vocabulary shields glowing, word weapons blazing, dynamic composition, sparks and explosions, anime style, vibrant colors, ultra detailed",
+    "wise cosmic sage in grand celestial library, wisdom flowing like golden water from ancient books, holographic words floating, spiritual and transcendent, sacred geometry, radiant light, ultra detailed, ethereal art",
+    "epic climb up dictionary mountain, giant books forming peaks, perseverance theme, sunrise with rainbow light, motivational, anime style, dramatic composition, ultra detailed",
+    "interdimensional portal made of swirling glowing words, cosmic gateway to knowledge dimensions, mysterious purple and blue energy, adventure theme, sci-fi fantasy, cinematic lighting, ultra detailed",
+    "majestic mythical dragon guardian of vocabulary realm, shimmering scales made of letters, protecting golden book treasure, gentle but powerful, epic fantasy, magical atmosphere, ultra detailed",
+    "grand crystalline bridge of knowledge connecting floating book islands, cosmic journey theme, breathtaking view of word galaxies, epic fantasy, dramatic perspective, ultra detailed",
+    "glowing golden key forged from ancient letters, unlocking secrets of the universe, mysterious light rays, magical artifacts, cinematic composition, ultra detailed",
+    "whispering ethereal library with books floating in zero gravity, ghostly voices as glowing particles, magical blue and purple atmosphere, mysterious, cinematic lighting, ultra detailed",
+    "epic final showdown with knowledge dragon, triumphant hero wielding word sword, sparks flying, victory moment, anime style, dynamic action, ultra detailed",
+    "eureka moment explosion of light, giant lightbulb made of glowing words, sudden realization, brilliant white and gold light, inspirational, cinematic composition, ultra detailed",
+    "standing triumphant atop mountain of glowing books, overlooking vast knowledge universe, galaxies below, victorious hero, epic composition, sunrise lighting, ultra detailed",
+    "victory celebration with word confetti exploding, rainbow colors, joyful party atmosphere, magical fireworks made of letters, anime style, vibrant and fun, ultra detailed",
+    "master walking path of enlightenment, glowing aura around, books floating in orbit, wise and peaceful, spiritual journey, golden hour lighting, ultra detailed",
+    "eternal world tree with books as leaves, infinite knowledge flowing through branches, galaxies in canopy, majestic and timeless, cosmic fantasy, ultra detailed",
+    "passing the torch of wisdom, teacher and student with glowing book, heartwarming moment, golden light connecting them, inspirational, ultra detailed",
+    "ultimate knowledge universe, galaxies made of swirling words, cosmic landscape, magnificent and awe-inspiring, sci-fi epic, ultra detailed masterpiece"
   ];
+
+  // 生成精彩的故事内容
+  const generateParagraphs = () => {
+    const paragraphs: string[] = [];
+    const wordCount = chapterWords.length;
+    
+    if (wordCount === 0) return paragraphs;
+    
+    // 第一段：精彩的开篇
+    paragraphs.push(`# Chapter ${chapterIndex + 1}: The <span class="vocab-word" data-word-id="pdf_${startWord + 1}">${chapterWords[0]}</span> of Destiny`);
+    
+    paragraphs.push(`In a world where words hold magical power, our hero embarks on an epic journey through the realm of vocabulary. The ancient prophecy speaks of a chosen one who will master the <span class="vocab-word" data-word-id="pdf_${startWord + 2}">${chapterWords[1] || ''}</span> and bring balance to the land of lexicons.`);
+    
+    if (wordCount > 2) {
+      paragraphs.push(`As the sun rose over the <span class="vocab-word" data-word-id="pdf_${startWord + 3}">${chapterWords[2]}</span> mountains, our hero prepared for the challenges ahead. With <span class="vocab-word" data-word-id="pdf_${startWord + 4}">${chapterWords[3]}</span> in their heart and <span class="vocab-word" data-word-id="pdf_${startWord + 5}">${chapterWords[4]}</span> in their mind, they stepped forward into the unknown.`);
+    }
+    
+    // 每10个单词生成一段精彩的故事
+    for (let i = 5; i < wordCount; i += 10) {
+      const endIdx = Math.min(i + 10, wordCount);
+      const wordSlice = chapterWords.slice(i, endIdx);
+      
+      // 为每个单词创建带span的标签
+      const spanWords = wordSlice.map((word, idx) => 
+        `<span class="vocab-word" data-word-id="pdf_${startWord + i + idx + 1}">${word}</span>`
+      );
+      
+      // 生成精彩的故事段落
+      if (spanWords.length > 0) {
+        const storyTemplates = [
+          `Suddenly, a mysterious figure appeared, wielding the power of ${spanWords[0]}. "Beware," they warned, "the path ahead is filled with ${spanWords[1] || 'danger'} and ${spanWords[2] || 'treachery'}!"`,
+          `Deep in the enchanted forest, they discovered a hidden clearing where ${spanWords[0]} grew wild. The air was thick with ${spanWords[1] || 'magic'}, and the trees whispered secrets of ${spanWords[2] || 'ancient times'}.`,
+          `The guardian of the valley stepped forward, blocking the path with ${spanWords[0]}. "To pass," they said, "you must prove your worth by demonstrating your knowledge of ${spanWords[1] || 'the ancient arts'}."`,
+          `With a burst of courage, our hero summoned the power of ${spanWords[0]}, shattering the barriers that stood in their way. The ground shook with ${spanWords[1] || 'tremors'}, and the sky lit up with ${spanWords[2] || 'brilliant light'}!`,
+          `As they ventured deeper, the landscape transformed into a breathtaking vista of ${spanWords[0]} and ${spanWords[1] || 'wonder'}. It was a sight that filled their heart with ${spanWords[2] || 'awe'} and their mind with ${spanWords[3] || 'inspiration'}.`
+        ];
+        
+        const randomTemplate = storyTemplates[Math.floor(Math.random() * storyTemplates.length)];
+        paragraphs.push(randomTemplate);
+        
+        if (spanWords.length > 3) {
+          paragraphs.push(`The journey continued through landscapes of ${spanWords[3]}, where time seemed to move differently. Every step revealed new ${spanWords[4] || 'discoveries'} and unexpected ${spanWords[5] || 'challenges'} that tested their resolve.`);
+        }
+      }
+    }
+    
+    // 结尾段落
+    paragraphs.push(`And so, with ${wordCount} new words mastered, our hero stood triumphantly at the chapter's end, ready to face whatever lay beyond. The knowledge gained here would prove invaluable in the adventures yet to come!`);
+    
+    return paragraphs;
+  };
   
-  let content = '';
-  
-  if (chapterIndex === 0) {
-    content = `
-In the vast expanse of the universe, there exists an <span class="vocab-word" data-word-id="pdf_2">exclusive</span> kingdom
-where <span class="vocab-word" data-word-id="pdf_4">establish</span> themselves as the <span class="vocab-word" data-word-id="pdf_6">specialist</span> in linguistic power. Every <span class="vocab-word" data-word-id="pdf_3">alongside</span> this reality, the <span class="vocab-word" data-word-id="pdf_5">limit</span> of vocabulary holds the <span class="vocab-word" data-word-id="pdf_7">hostility</span> that threatens to <span class="vocab-word" data-word-id="pdf_9">inherit</span> to <span class="vocab-word" data-word-id="pdf_8">upgrade</span> and <span class="vocab-word" data-word-id="pdf_11">apart</span> the <span class="vocab-word" data-word-id="pdf_13">statistics</span> of <span class="vocab-word" data-word-id="pdf_14">mobile</span> to <span class="vocab-word" data-word-id="pdf_15">well-being</span> and <span class="vocab-word" data-word-id="pdf_16">security</span> across the <span class="vocab-word" data-word-id="pdf_17">clue</span> world.
-
-Our story begins with Lin Chen, a young student with <span class="vocab-word" data-word-id="pdf_19">regulatory</span> dreams of <span class="vocab-word" data-word-id="pdf_21">modest</span> origin. He <span class="vocab-word" data-word-id="pdf_20">reminder</span> his <span class="vocab-word" data-word-id="pdf_22">cue</span> and <span class="vocab-word" data-word-id="pdf_23">suggest</span> that he should <span class="vocab-word" data-word-id="pdf_24">sort</span> through his priorities, seeking <span class="vocab-word" data-word-id="pdf_25">valid</span> ways to <span class="vocab-word" data-word-id="pdf_26">productivity</span>. The <span class="vocab-word" data-word-id="pdf_27">hinder</span> his progress <span class="vocab-word" data-word-id="pdf_29">aspect</span> of his <span class="vocab-word" data-word-id="pdf_30">dim</span> and <span class="vocab-word" data-word-id="pdf_31">nasty</span> fears, <span class="vocab-word" data-word-id="pdf_32">supervision</span> and <span class="vocab-word" data-word-id="pdf_33">pick up</span> his <span class="vocab-word" data-word-id="pdf_34">dramatically</span> and <span class="vocab-word" data-word-id="pdf_35">contrary</span> to <span class="vocab-word" data-word-id="pdf_36">wrong</span> thoughts.
-    `;
-  } else {
-    content = `
-Chapter ${chapterIndex + 1}: The <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 1}">${chapterWords[0]}</span> of <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 2}">${chapterWords[1]}</span>
-
-As Lin Chen's journey continued, he discovered the <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 3}">${chapterWords[2]}</span> of <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 4}">${chapterWords[3]}</span> and the <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 5}">${chapterWords[4]}</span> of <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 6}">${chapterWords[5]}</span> power. The <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 7}">${chapterWords[6]}</span> world <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 8}">${chapterWords[7]}</span> with <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 9}">${chapterWords[8]}</span> as he <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 10}">${chapterWords[9]}</span> towards his <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 11}">${chapterWords[10]}</span> destiny.
-
-Every step forward revealed new <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 12}">${chapterWords[11]}</span> and <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 13}">${chapterWords[12]}</span> that <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 14}">${chapterWords[13]}</span> his <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 15}">${chapterWords[14]}</span> understanding. The <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 16}">${chapterWords[15]}</span> challenges only made him <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 17}">${chapterWords[16]}</span> more <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 18}">${chapterWords[17]}</span> and <span class="vocab-word" data-word-id="pdf_${(chapterIndex % 20) + 19}">${chapterWords[18]}</span>.
-    `;
-  }
+  const content = generateParagraphs().join('\n\n');
   
   const wordIds: string[] = [];
   for (let i = 0; i < Math.min(100, chapterWords.length); i++) {
@@ -83,15 +116,17 @@ Every step forward revealed new <span class="vocab-word" data-word-id="pdf_${(ch
   
   return {
     id: `novel-chapter-${chapterIndex}`,
-    title: chapterTitles[chapterIndex] || `Chapter ${chapterIndex + 1}: The Journey Continues`,
+    title: chapterTitles[chapterIndex % chapterTitles.length] || `Chapter ${chapterIndex + 1}: The Journey Continues`,
     content: content.trim(),
     wordIds,
-    illustration: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(illustrationPrompts[chapterIndex] || illustrationPrompts[0])}&image_size=landscape_16_9`,
+    illustration: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(illustrationPrompts[chapterIndex % illustrationPrompts.length] || illustrationPrompts[0])}&image_size=landscape_16_9`,
   };
 };
 
 export const novelChapters: NovelChapter[] = [];
 
-for (let i = 0; i < 19; i++) {
+// 生成所有章节
+const chapterCount = Math.ceil(vocabularyList.length / 100);
+for (let i = 0; i < chapterCount; i++) {
   novelChapters.push(generateChapterContent(i, 100));
 }

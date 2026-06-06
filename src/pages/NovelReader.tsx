@@ -30,14 +30,7 @@ const NovelReader: React.FC = () => {
   const themeClasses = {
     light: 'bg-white text-gray-800',
     dark: 'bg-gray-900 text-gray-100',
-    sepia: 'bg-amber-50 text-amber-900',
-  };
-
-  const handleWordClick = (e: React.MouseEvent<HTMLSpanElement>) => {
-    const wordId = e.currentTarget.dataset.wordId;
-    if (wordId) {
-      setSelectedWord(wordId);
-    }
+    sepia: 'bg-amber-50 text-amber-90',
   };
 
   const closeWordPopup = () => {
@@ -119,7 +112,10 @@ const NovelReader: React.FC = () => {
             onClick={(e) => {
               const target = e.target as HTMLElement;
               if (target.classList.contains('vocab-word')) {
-                handleWordClick(e as unknown as React.MouseEvent<HTMLSpanElement>);
+                const wordId = target.dataset.wordId;
+                if (wordId) {
+                  setSelectedWord(wordId);
+                }
               }
             }}
           />
@@ -199,11 +195,6 @@ const NovelReader: React.FC = () => {
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">Meaning</p>
                 <p className="text-gray-800 dark:text-gray-200">{selectedWordData.meaning}</p>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">Example</p>
-                <p className="text-gray-700 dark:text-gray-300 italic">"{selectedWordData.example}"</p>
               </div>
             </div>
 

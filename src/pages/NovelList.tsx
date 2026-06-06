@@ -2,8 +2,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { novelChapters } from '../data/novelContent';
+import { vocabularyList } from '../data/pdfWords';
 
 const NovelList: React.FC = () => {
+  const totalWords = vocabularyList.length;
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-4xl mx-auto px-4 py-12">
@@ -12,7 +15,7 @@ const NovelList: React.FC = () => {
             星际词灵
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Learn 1883 postgraduate English vocabulary through an immersive sci-fi adventure
+            Learn {totalWords} postgraduate English vocabulary through an immersive sci-fi adventure
           </p>
           <div className="mt-6 flex justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
             <span className="flex items-center gap-2">
@@ -25,7 +28,7 @@ const NovelList: React.FC = () => {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              1883 Vocabulary Words
+              {totalWords} Vocabulary Words
             </span>
           </div>
         </header>

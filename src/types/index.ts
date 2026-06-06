@@ -5,7 +5,7 @@ export interface Word {
   phonetic: string;
   partOfSpeech: string;
   meaning: string;
-  example: string;
+  example?: string;
 }
 
 // 单词书
